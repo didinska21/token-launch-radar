@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pre-Token Radar — implied value board for protocols with no token yet</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="topband">
+  <div class="brand">
+    <div class="logo" aria-hidden="true"><span></span></div>
+    <div>
+      <h1>PRE-TOKEN RADAR</h1>
+      <p class="tagline">Protocols that record no token yet, ranked by what a token would be worth if the record stayed as it is — and how to farm each one before it issues.</p>
+    </div>
+  </div>
+  <div class="chips" id="chips"></div>
+</header>
+
+<section class="modelstrip" id="modelstrip"></section>
+
+<section class="controls" aria-label="Filters">
+  <label class="ctl grow">Search
+    <input id="q" type="search" placeholder="Protocol name or slug…">
+  </label>
+  <label class="ctl">Category
+    <select id="category"><option value="">All categories</option></select>
+  </label>
+  <label class="ctl">Chain
+    <select id="chain"><option value="">All chains</option></select>
+  </label>
+  <label class="ctl">Min TVL
+    <select id="mintvl">
+      <option value="0">Any</option>
+      <option value="25000000">$25M+</option>
+      <option value="50000000">$50M+</option>
+      <option value="100000000">$100M+</option>
+      <option value="500000000">$500M+</option>
+    </select>
+  </label>
+  <label class="ctl">Sort by
+    <select id="sort">
+      <option value="rank">Implied value (rank)</option>
+      <option value="tvl">TVL</option>
+      <option value="change">7d change</option>
+      <option value="age">Age, oldest first</option>
+      <option value="readiness">Readiness</option>
+    </select>
+  </label>
+  <label class="ctl check"><input id="watchonly" type="checkbox"> Watchlist only</label>
+  <div class="count" id="count"></div>
+</section>
+
+<main class="layout">
+  <section class="boardwrap">
+    <table class="board" id="board">
+      <thead>
+        <tr>
+          <th class="num">#</th><th>Protocol</th><th>Category</th>
+          <th class="num">TVL</th><th class="num">7d</th><th class="num">Age</th>
+          <th class="num">Implied value</th><th class="num">x TVL</th><th>Readiness</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="empty" id="empty" hidden>No protocol matches these filters. Loosen one and the radar sweeps again.</p>
+  </section>
+  <aside class="detail" id="detail" aria-label="Protocol detail"></aside>
+</main>
+
+<section class="livestrip">
+  <h2>Already live — set aside, never ranked</h2>
+  <p>These protocols' tokens already trade, so the radar does not rank them. Their market-cap/TVL ratios are the evidence the category multiples are learned from.</p>
+  <div class="livegrid" id="livegrid"></div>
+</section>
+
+<footer>
+  <p>Method in one line: implied = TVL × category multiple × momentum × maturity × breadth, every factor computed from the sealed snapshot itself; no name is special-cased. Implied value is this board's own claim about a hypothetical token, not a prediction that one will be issued. Data: DefiLlama snapshot, sealed at build time.</p>
+</footer>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
